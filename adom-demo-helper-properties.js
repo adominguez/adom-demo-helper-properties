@@ -94,7 +94,7 @@
 
         if((this._propertiesBinded[i].list) && (this._propertiesBinded[i].list[this._propertiesBinded[i].selected].value !== "false")) {
           if(this._propertiesBinded[i].list[this._propertiesBinded[i].selected].value === "true") {
-            newProperties += this._propertiesBinded[i].label;
+            newProperties += ' ' + this._propertiesBinded[i].label;
           } else {
             newProperties += this._propertiesBinded[i].label + '="' + this._propertiesBinded[i].list[this._propertiesBinded[i].selected].value +'" ';
           }
