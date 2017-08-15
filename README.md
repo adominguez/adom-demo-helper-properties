@@ -9,7 +9,7 @@ With this component you can see your component demo and change his properties, t
 __example__
 
 ```html
-<adom-demo-helper-properties id="view0" toast-events='["click-navigation-button"]' component-name="adom-card-color" properties-setted='[{"label": "color", "value": "#65a5f2", "color": "#65a5f2"}, {"label": "heading", "value": "title"}, {"label": "counter", "value": "4", "type": "number"}, {"label": "units", "value": "components"}, {"label": "icon", "selected": "0", "list": [{"value":"icons:view-module"}, {"value": "icons:view-carousel"}, {"value": "icons:touch-app"}, {"value": "icons:today"}]}, {"label": "reverse", "selected": "1", "list": [{"value": "false"}, {"value": "true"}]}]'>
+<adom-demo-helper-properties id="view0" toast-events='["click-navigation-button"]' component-name="adom-card-color" properties-setted='[{"label": "color", "value": "#65a5f2", "color": "#65a5f2"}, {"label": "heading", "value": "title"}, {"label": "counter", "value": "4", "type": "number"}, {"label": "units", "value": "components"}, {"label": "icon", "selected": "0", "list": [{"value":"icons:view-module"}, {"value": "icons:view-carousel"}, {"value": "icons:touch-app"}, {"value": "icons:today"}]}, {"label": "collapsed", "selected": "1", "list": [{"value": "false"}, {"value": "true"}]}]'>
   <adom-demo-marked>
   </demo-snippet>
 </adom-demo-helper-properties>
