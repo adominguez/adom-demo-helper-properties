@@ -11,7 +11,7 @@
        */
       componentName: {
         type: String,
-        observer: '_computedHeading'
+        observer: '_setHeading'
       },
       /**
        * set the events fired
@@ -50,7 +50,7 @@
       this._propertiesBinded = this.propertiesSetted;
     },
 
-    _computedHeading: function() {
+    _setHeading: function() {
       this.$$('#heading').innerHTML = this.children[0].getAttribute('data-heading');
       this.$$('#description').innerHTML = this.children[0].getAttribute('data-description');
     },
