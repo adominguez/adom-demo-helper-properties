@@ -10,7 +10,17 @@
        * Component name, is a obligatory property
        */
       componentName: {
-        type: String
+        type: String,
+        observer: '_readFile'
+      },
+      scss: {
+        type: String,
+      },
+      mixins: {
+        type: Array,
+        value: function() {
+          return [];
+        }
       },
       /**
        * set the events fired
@@ -90,6 +100,16 @@
       var newProperties = "";
       var html="";
       var snippet="";
+      var style="";
+
+      if(this.mixins.length> 0) {
+        style += '<style is="custom-style">'+ this.componentName + '{'
+        for(var j = 0; i < this.mixins.length; j++) {
+
+        }
+        style += '}</style>'
+      }
+
       for(var i = 0; i < this._propertiesBinded.length; i++) {
 
         if((this._propertiesBinded[i].list) && (this._propertiesBinded[i].list[this._propertiesBinded[i].selected].value !== "false")) {
@@ -104,11 +124,38 @@
           }
         }
       }
-      html = '<template is="dom-bind"><'+ this.componentName + ' ' + newProperties + '></'+ this.componentName + '></template>'
+      html = '<template is="dom-bind">'+ style +'<'+ this.componentName + ' ' + newProperties + '></'+ this.componentName + '></template>'
       snippet = '<'+ this.componentName + ' ' + newProperties + '></'+ this.componentName + '>'
       this.children[this.optionSelected].innerHTML = html;
       this.children[this.optionSelected]._markdown = '```' + snippet + '```';
-    }
+    },
+    _readFile: function(componentName) {
+      var request = new XMLHttpRequest();
+      var file = '../bower_components/'+componentName+ '/' + componentName + '.scss'
+      console.log(request)
+      request.open('GET', file, true);
+      request.onload = function () {
+        if (request.status >= 200 && request.status < 400) {
+          this.scss = request.responseText;
+          var mixin = [];
+          for(var i= 0; i < this.scss.split('var(').length; i++) {
+            if(i!== 0) {
+              // Find the first word
+              var reg1 = /([^\s]+)/;
+              // Find the second word
+              var reg2 = /\s+([^\s]+)/;
+              mixin.push({"mixin": this.scss.split('var(')[i].match(reg1)[0].slice(0, -1), "value": this.scss.split('var(')[i].match(reg2)[0].slice(1, -2)});
+            }
+          }
+          this.mixins = mixin;
+        }
+        else {
+          console.error('file not found');
+        }
+      };
+      request.onerror = function () { ajaxErr(request); };
+      request.send();
+    },
 
   });
 }());
