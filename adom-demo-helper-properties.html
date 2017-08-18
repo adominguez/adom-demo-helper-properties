@@ -56,7 +56,7 @@ Custom property                           | Description                         
             <template is="dom-if" if="[[item.color]]">
               <paper-swatch-picker color="{{item.value}}" on-color-changed="_setProperties"></paper-swatch-picker>
             </template>
-            <paper-input label="[[item.label]]" type="[[item.type]]" value="{{item.value}}" on-change="_setProperties">
+            <paper-input label="[[item.label]]" type="[[item.type]]" value="{{item.value}}" on-value-changed="_setProperties">
             </paper-input>
           </template>
           <template is="dom-if" if="[[item.list]]">
@@ -70,7 +70,7 @@ Custom property                           | Description                         
           </template>
         </template>
       </div>
-        <content id="content" select="#[[defaultContentId]][[optionSelected]]"></content>
+      <content id="content"></content>
     </div>
     <paper-toast id="toast">
       <div class="toastContent">

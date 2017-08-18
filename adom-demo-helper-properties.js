@@ -11,16 +11,7 @@
        */
       componentName: {
         type: String,
-        observer: '_readFile'
-      },
-      scss: {
-        type: String,
-      },
-      mixins: {
-        type: Array,
-        value: function() {
-          return [];
-        }
+        observer: '_computedHeading'
       },
       /**
        * set the events fired
@@ -32,27 +23,7 @@
         },
         notify: true,
       },
-      /**
-       * set de default word for use in the id of the demos, by default is view
-       */
-      defaultContentId: {
-        type: String,
-        value: 'view'
-      },
-      /**
-       * set the selected option in the menu
-       */
-      optionSelected: {
-        type: Number,
-        value: 0,
-        observer: '_computedContent'
-      },
-      _event: {
-        type: Object,
-        value: function() {
-          return {};
-        },
-      },
+
       propertiesSetted: {
         type: Array,
         value: function() {
@@ -79,18 +50,9 @@
       this._propertiesBinded = this.propertiesSetted;
     },
 
-    _computedContent: function() {
-      if (this.optionSelected > this.children.length) {
-        this.optionSelected = 0
-      }
-      var menu=[];
-      for(var i = 0; i<this.children.length; i++) {
-        menu.push({
-          'optionName': this.children[i].getAttribute('data-heading')
-        });
-      }
-      this.$$('#heading').innerHTML = this.children[this.optionSelected].getAttribute('data-heading');
-      this.$$('#description').innerHTML = this.children[this.optionSelected].getAttribute('data-description');
+    _computedHeading: function() {
+      this.$$('#heading').innerHTML = this.children[0].getAttribute('data-heading');
+      this.$$('#description').innerHTML = this.children[0].getAttribute('data-description');
     },
     _showToast: function(e) {
       this.$$('#toast').text = e.type;
@@ -100,16 +62,6 @@
       var newProperties = "";
       var html="";
       var snippet="";
-      var style="";
-
-      if(this.mixins.length> 0) {
-        style += '<style is="custom-style">'+ this.componentName + '{'
-        for(var j = 0; i < this.mixins.length; j++) {
-
-        }
-        style += '}</style>'
-      }
-
       for(var i = 0; i < this._propertiesBinded.length; i++) {
 
         if((this._propertiesBinded[i].list) && (this._propertiesBinded[i].list[this._propertiesBinded[i].selected].value !== "false")) {
@@ -124,38 +76,11 @@
           }
         }
       }
-      html = '<template is="dom-bind">'+ style +'<'+ this.componentName + ' ' + newProperties + '></'+ this.componentName + '></template>'
+      html = '<template is="dom-bind"><'+ this.componentName + ' ' + newProperties + '></'+ this.componentName + '></template>'
       snippet = '<'+ this.componentName + ' ' + newProperties + '></'+ this.componentName + '>'
-      this.children[this.optionSelected].innerHTML = html;
-      this.children[this.optionSelected]._markdown = '```' + snippet + '```';
-    },
-    _readFile: function(componentName) {
-      var request = new XMLHttpRequest();
-      var file = '../bower_components/'+componentName+ '/' + componentName + '.scss'
-      console.log(request)
-      request.open('GET', file, true);
-      request.onload = function () {
-        if (request.status >= 200 && request.status < 400) {
-          this.scss = request.responseText;
-          var mixin = [];
-          for(var i= 0; i < this.scss.split('var(').length; i++) {
-            if(i!== 0) {
-              // Find the first word
-              var reg1 = /([^\s]+)/;
-              // Find the second word
-              var reg2 = /\s+([^\s]+)/;
-              mixin.push({"mixin": this.scss.split('var(')[i].match(reg1)[0].slice(0, -1), "value": this.scss.split('var(')[i].match(reg2)[0].slice(1, -2)});
-            }
-          }
-          this.mixins = mixin;
-        }
-        else {
-          console.error('file not found');
-        }
-      };
-      request.onerror = function () { ajaxErr(request); };
-      request.send();
-    },
+      this.children[0].innerHTML = html;
+      this.children[0]._markdown = '```' + snippet + '```';
+    }
 
   });
 }());
