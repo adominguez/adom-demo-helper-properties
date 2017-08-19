@@ -20,21 +20,31 @@
   margin: 1em;
   @apply (--adom-demo-helper-properties-content-page); }
   .contentPage__info {
-    padding: 1em;
     @apply (--adom-demo-helper-properties-content-page-info); }
     .contentPage__info__heading {
-      color: #3e3e3e;
+      color: #121212;
       text-transform: capitalize;
+      font-size: 40px;
+      font-weight: 100;
       @apply (--adom-demo-helper-properties-content-page-info-heading); }
     .contentPage__info__description {
-      color: #999;
+      color: #666;
+      font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 100;
       @apply (--adom-demo-helper-properties-content-page-info-description); }
   .contentPage__properties {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    margin: 0 -10px; }
+    margin: 0 -10px;
+    font-weight: lighter; }
+    .contentPage__properties h3 {
+      color: #212121;
+      font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 18px;
+      font-weight: bolder; }
   .contentPage__properties paper-input {
     margin-right: 20px; }
   .contentPage paper-listbox {

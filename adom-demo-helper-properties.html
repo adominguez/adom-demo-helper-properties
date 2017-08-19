@@ -15,7 +15,7 @@ Is a component created for to be used in other demo components with properties
 
 ## Structure
 
-With this component you can see your component demo and change his properties, this show the result of component.
+With this component you can see your component demo and change his properties and his css var for show the result of component.
 
 __example__
 
@@ -24,6 +24,70 @@ __example__
   <adom-demo-marked>
   </demo-snippet>
 </adom-demo-helper-properties>
+```
+
+## Properties
+
+With the `properties-setted` property of cells-demo-helper-properties you can create an array with the properties of the component you want. You can see a complete example here:
+
+```json
+[{"label": "color", "value": "#65a5f2", "color": "#65a5f2"}, {"label": "heading", "value": "title"}, {"label": "counter", "value": "4", "type": "number"}, {"label": "units", "value": "components"}, {"label": "icon", "selected": "0", "list": [{"value":"icons:view-module"}, {"value": "icons:view-carousel"}, {"value": "icons:touch-app"}, {"value": "icons:today"}]}, {"label": "reverse", "selected": "1", "list": [{"value": "false"}, {"value": "true"}]}]
+```
+
+You can add diferents types of items:
+
+### Use example input
+
+```json
+{"label": "heading", "value": "title", "type": "text"}
+```
+
+### Use example color
+
+```json
+{"label": "color", "value": "#65a5f2", "color": "#65a5f2"}
+```
+
+### Use example number
+
+```json
+{"label": "counter", "value": "4", "type": "number"}
+```
+
+### Use example select
+
+```json
+{"label": "icon", "selected": "0", "list": [{"value":"icons:view-module"}, {"value": "icons:view-carousel"}, {"value": "icons:touch-app"}, {"value": "icons:today"}]}
+```
+
+## css vars
+
+Use the css vars contened in the file of component `component-name-styles.html`.
+
+Map all the variables found in the file and display them in the demo.
+
+The correct way to use the variables is as follows:
+
+```scss
+.my-class {
+  display: block;
+  box-sizing: border-box;
+  background-color: var(--adom-card-color-bg-color, #00ff00);
+  border-radius: var(--adom-card-color-border, 3px);
+}
+```
+
+`var(--adom-card-color-bg-color, #00ff00);`
+`border-radius: var(--adom-card-color-border, 3px);`
+
+For show a Paint pot in the demo the end of the name of css var must be `color`.
+
+## Events
+
+With the property `toastEvents` it´s possible add all events of component, and show a toast when the event is listener.
+
+```json
+["one-event", "two-event"]
 ```
 
 ## Styling
@@ -50,6 +114,7 @@ Custom property                           | Description                         
         <h1 id="heading" class="contentPage__info__heading"></h1>
         <span id="description" class="contentPage__info__description"></span>
       </div>
+      <h3>Component properties</h3>
       <div class="contentPage__properties">
         <template is="dom-repeat" items="[[_propertiesBinded]]">
           <template is="dom-if" if="[[!item.list]]">
@@ -70,11 +135,22 @@ Custom property                           | Description                         
           </template>
         </template>
       </div>
+
+      <h3>Component css vars</h3>
+      <div class="contentPage__properties">
+        <template is="dom-repeat" items="[[_mixins]]">
+          <template is="dom-if" if="[[_computeColor(item)]]">
+            <paper-swatch-picker color="{{item.value}}" on-color-changed="_setProperties"></paper-swatch-picker>
+          </template>
+          <paper-input label="[[item.mixin]]" type="text" value="{{item.value}}" on-value-changed="_setProperties">
+          </paper-input>
+        </template>
+      </div>
+
       <content id="content"></content>
     </div>
     <paper-toast id="toast">
-      <div class="toastContent">
-        contenido
+      <div id="toastContent" class="toastContent">
       </div>
     </paper-toast>
   </template>
