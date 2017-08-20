@@ -79,11 +79,17 @@
        */
       var request = new XMLHttpRequest();
       request.open('GET', self._file, true);
+      var secondFile = '../' + self.componentName + '-styles.html';
       request.onload = function () {
         if (request.status >= 200 && request.status < 400) {
           // Save the scss in a property
           self._scss = request.responseText;
-        } else {
+        }
+        else if (self._file !== secondFile) {
+          self._file = secondFile;
+          self._setFile();
+        }
+        else {
           self._propertiesBinded = self.propertiesSetted;
           console.error('file not found');
         }
