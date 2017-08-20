@@ -145,12 +145,17 @@
       var reg2 = /\s+([^\s]+)/;
       for (var i = 0; i < _scss.split('var(').length; i++) {
         if (i > 0) {
-          if(array.indexOf(_scss.split('var(')[i].match(reg1)[0].slice(0, -1)) === -1) {
+          var item = _scss.split('var(')[i].match(reg1)[0].slice(0, -1);
+          var value = _scss.split('var(')[i].match(reg2)[0].slice(1, -2);
+          if(array.indexOf(item) === -1) {
+            if(_scss.split('var(')[i].match(reg2)[0].slice(-3) === '));') {
+              value = _scss.split('var(')[i].match(reg2)[0].slice(1, -3)
+            }
             mixin.push({
-              "mixin": _scss.split('var(')[i].match(reg1)[0].slice(0, -1),
-              "value": _scss.split('var(')[i].match(reg2)[0].slice(1, -2)
+              "mixin": item,
+              "value": value
             });
-            array.push(_scss.split('var(')[i].match(reg1)[0].slice(0, -1))
+            array.push(item)
           }
         }
       }
