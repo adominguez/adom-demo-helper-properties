@@ -110,11 +110,15 @@
       var style = "";
 
       if (this._mixins.length > 0) {
-        style += '<style is="custom-style">' + this.componentName + '{'
+        style += `<style is="custom-style">
+          ${this.componentName} {`
         for (var j = 0; j < this._mixins.length; j++) {
-          style += this._mixins[j].mixin + ':' + this._mixins[j].value + ';'
+          style += `
+              ${this._mixins[j].mixin} : ${this._mixins[j].value};`
         }
-        style += '}</style>'
+        style += `
+          }
+      </style>`
       }
 
       for (var i = 0; i < this._propertiesBinded.length; i++) {
@@ -131,7 +135,10 @@
           }
         }
       }
-      html = '<template is="dom-bind">'+ style +'<'+ this.componentName + ' ' + newProperties + '></'+ this.componentName + '></template>'
+      html = `<template is="dom-bind">
+      ${style}
+      <${this.componentName} ${newProperties} ></${this.componentName}>
+      </template>`
       snippet = '<'+ this.componentName + ' ' + newProperties + '></'+ this.componentName + '>'
       this.children[0].innerHTML = html;
       this.children[0]._markdown = '```' + snippet + '```';
