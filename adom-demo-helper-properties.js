@@ -27,6 +27,10 @@
           return [];
         }
       },
+      slot: {
+        type: Boolean,
+        value: true,
+      },
       /**
        * set the events fired
        */
@@ -54,6 +58,12 @@
         },
         notify: true,
         observer: '_setProperties'
+      },
+      methods: {
+        type: Array,
+        value: function () {
+          return [];
+        }
       },
       /**
        * selected in paper-tabs
@@ -121,19 +131,27 @@
       var html = "";
       var snippet = "";
       var style = "";
+      var script = "";
+      var slot = "";
 
+      /**
+       * Do the fragment of style
+       */
       if (this._mixins.length > 0) {
         style += `<style is="custom-style">
-          ${this.componentName} {`
+        ${this.componentName} {`
         for (var j = 0; j < this._mixins.length; j++) {
           style += `
-              ${this._mixins[j].mixin} : ${this._mixins[j].value};`
+          ${this._mixins[j].mixin} : ${this._mixins[j].value};`
         }
         style += `
-          }
+        }
       </style>`
       }
 
+      /**
+       * Do the fragment of components properties
+       */
       for (var i = 0; i < this._propertiesBinded.length; i++) {
 
         if ((this._propertiesBinded[i].list) && (this._propertiesBinded[i].list[this._propertiesBinded[i].selected].value !== "false")) {
@@ -148,9 +166,32 @@
           }
         }
       }
-      html = `<template is="dom-bind">
+
+      /**
+       * Do the fragment script for the methods in component
+       */
+      if((this.methods) && (this.methods !== [])) {
+        script += `<script>
+        (function(demo) {
+          var component = demo.querySelector('#component');`
+        for(var i = 0; i< this.methods.length; i++) {
+          script += `
+          demo.addEventListener('${this.methods[i]}', function() {
+            component.${this.methods[i]}();
+          })`
+        }
+        script += `
+        })(document.querySelector('#demo'));
+      </script>`
+      }
+
+      /**
+       * Add all code in markdown
+       */
+      html = `<template is="dom-bind" id="demo">
       ${style}
-      <${this.componentName} ${newProperties} ></${this.componentName}>
+      <${this.componentName} ${newProperties} id="component" ></${this.componentName}>
+      ${script}
       </template>`
       snippet = '<'+ this.componentName + ' ' + newProperties + '></'+ this.componentName + '>'
       this.children[0].innerHTML = html;
@@ -189,6 +230,13 @@
         return true;
       }
       return false;
+    },
+    _setMethod: function(e) {
+      this.dispatchEvent(new CustomEvent(e.target.id, {
+        bubbles: true,
+        composed: true,
+        detail: e.target.id
+      }));
     }
 
   });

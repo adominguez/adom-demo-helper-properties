@@ -7,7 +7,9 @@
 <link rel="import" href="../vaadin-icons/vaadin-icons.html">
 <link rel="import" href="../paper-toast/paper-toast.html">
 <link rel="import" href="../paper-swatch-picker/paper-swatch-picker.html">
+<link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-input/paper-textarea.html">
 <link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../paper-listbox/paper-listbox.html">
 <link rel="import" href="../paper-item/paper-item.html">
@@ -124,11 +126,23 @@ Custom property                           | Description                         
         <paper-tabs selected="{{selected}}" noink>
           <template is="dom-if" if="[[_propertiesBinded]]">
             <paper-tab>
-              <iron-icon icon="vaadin:code"></iron-icon>Component properties</paper-tab>
+              <iron-icon icon="vaadin:curly-brackets"></iron-icon>Component properties
+            </paper-tab>
           </template>
           <template is="dom-if" if="[[_mixins]]">
             <paper-tab>
-              <iron-icon icon="vaadin:paintbrush"></iron-icon>Component css vars</paper-tab>
+              <iron-icon icon="vaadin:paintbrush"></iron-icon>Component css vars
+            </paper-tab>
+          </template>
+          <template is="dom-if" if="[[methods]]">
+            <paper-tab>
+              <iron-icon icon="vaadin:file-tree-sub"></iron-icon>Component methods
+            </paper-tab>
+          </template>
+          <template is="dom-if" if="[[slot]]">
+            <paper-tab>
+              <iron-icon icon="vaadin:code"></iron-icon>Component slot
+            </paper-tab>
           </template>
         </paper-tabs>
 
@@ -169,6 +183,24 @@ Custom property                           | Description                         
                   <paper-input label="[[item.mixin]]" type="text" value="{{item.value}}" on-value-changed="_setProperties">
                   </paper-input>
                 </template>
+              </div>
+            </template>
+          </div>
+          <div class="selected">
+            <template is="dom-if" if="[[methods]]">
+              <h3>Component methods</h3>
+              <div class="contentPage__properties">
+                <template is="dom-repeat" items="[[methods]]">
+                  <paper-button raised class="indigo" id$="[[item]]" on-tap="_setMethod">[[item]]</paper-button>
+                </template>
+              </div>
+            </template>
+          </div>
+          <div class="selected">
+            <template is="dom-if" if="[[slot]]">
+              <h3>Component slot</h3>
+              <div class="contentPage__properties">
+                  <paper-textarea label="slot content" value="mete aquí contenido"></paper-textarea>
               </div>
             </template>
           </div>
