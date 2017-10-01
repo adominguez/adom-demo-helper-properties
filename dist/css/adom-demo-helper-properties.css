@@ -15,10 +15,25 @@
   padding: 0.5em 0 0.5em 0;
   color: var(--adom-demo-helper-properties-toast-content-color, green); }
 
+.tabs {
+  background-color: #fff;
+  padding: 0.5em;
+  box-shadow: var(--shadow-elevation-2dp_-_box-shadow); }
+
+.selected {
+  margin: 1em; }
+
+paper-tabs {
+  --paper-tabs-selection-bar-color: #121212; }
+
+iron-icon {
+  padding-right: 0.5em; }
+
 .contentPage {
   margin: 1em;
   @apply (--adom-demo-helper-properties-content-page); }
   .contentPage__info {
+    margin-bottom: 1em;
     @apply (--adom-demo-helper-properties-content-page-info); }
     .contentPage__info__heading {
       color: #121212;
@@ -37,7 +52,6 @@
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    margin: 0 -10px;
     font-weight: lighter; }
     .contentPage__properties h3 {
       color: #212121;

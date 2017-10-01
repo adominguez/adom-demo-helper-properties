@@ -18,10 +18,26 @@
   color: var(--adom-demo-helper-properties-toast-content-color, green);
 }
 
+.tabs {
+  background-color: #fff;
+  padding: 0.5em;
+  box-shadow: var(--shadow-elevation-2dp_-_box-shadow);
+}
+.selected {
+  margin: 1em;
+}
+paper-tabs {
+  --paper-tabs-selection-bar-color: #121212;
+}
+iron-icon {
+  padding-right: 0.5em;
+}
+
 .contentPage {
   margin: 1em;
   @apply(--adom-demo-helper-properties-content-page);
   &__info {
+    margin-bottom: 1em;
     @apply(--adom-demo-helper-properties-content-page-info);
     &__heading {
       color: #121212;
@@ -41,7 +57,6 @@
   &__properties {
     display: flex;
     flex-wrap: wrap;
-    margin: 0 -10px;
     font-weight: lighter;
     & h3 {
       color: #212121;
