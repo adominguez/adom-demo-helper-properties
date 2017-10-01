@@ -29,6 +29,9 @@ paper-tabs {
 iron-icon {
   padding-right: 0.5em; }
 
+paper-textarea {
+  width: 100%; }
+
 .contentPage {
   margin: 1em;
   @apply (--adom-demo-helper-properties-content-page); }
