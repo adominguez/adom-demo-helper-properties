@@ -25,10 +25,9 @@
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
     "web-component-tester": "Polymer/web-component-tester#^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
-    "adom-card-color": "https://github.com/ADominguezes/adom-card-color.git"
+    "adom-card-color": "adominguez/adom-card-color.git"
   },
   "resolutions": {
-    "webcomponentsjs": "^0.7.0",
-    "iron-icon": "^2.0.0"
+    "webcomponentsjs": "^0.7.0"
   }
 }
