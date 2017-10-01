@@ -7,6 +7,7 @@
 <link rel="import" href="../vaadin-icons/vaadin-icons.html">
 <link rel="import" href="../paper-toast/paper-toast.html">
 <link rel="import" href="../paper-swatch-picker/paper-swatch-picker.html">
+<link rel="import" href="../paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../paper-input/paper-textarea.html">
@@ -147,8 +148,8 @@ Custom property                           | Description                         
         </paper-tabs>
 
         <iron-pages selected="{{selected}}">
-          <div class="selected">
-            <template is="dom-if" if="[[_propertiesBinded]]">
+          <template is="dom-if" if="[[_propertiesBinded]]">
+            <div class="selected">
               <h3>Component properties</h3>
               <div class="contentPage__properties">
                 <template is="dom-repeat" items="[[_propertiesBinded]]">
@@ -170,10 +171,10 @@ Custom property                           | Description                         
                   </template>
                 </template>
               </div>
-            </template>
-          </div>
-          <div class="selected">
-            <template is="dom-if" if="[[_mixins]]">
+            </div>
+          </template>
+          <template is="dom-if" if="[[_mixins]]">
+            <div class="selected">
               <h3>Component css vars</h3>
               <div class="contentPage__properties">
                 <template is="dom-repeat" items="[[_mixins]]">
@@ -184,26 +185,27 @@ Custom property                           | Description                         
                   </paper-input>
                 </template>
               </div>
-            </template>
-          </div>
-          <div class="selected">
-            <template is="dom-if" if="[[methods]]">
+            </div>
+          </template>
+          <template is="dom-if" if="[[methods]]">
+            <div class="selected">
               <h3>Component methods</h3>
               <div class="contentPage__properties">
                 <template is="dom-repeat" items="[[methods]]">
                   <paper-button raised class="indigo" id$="[[item]]" on-tap="_setMethod">[[item]]</paper-button>
                 </template>
               </div>
-            </template>
-          </div>
-          <div class="selected">
-            <template is="dom-if" if="[[slot]]">
+            </div>
+          </template>
+          <template is="dom-if" if="[[slot]]">
+            <div class="selected">
               <h3>Component slot</h3>
               <div class="contentPage__properties">
-                  <paper-textarea label="slot content" value="mete aquí contenido"></paper-textarea>
+                <paper-toggle-button checked="{{allowSlot}}" on-checked-changed="_setProperties">The use of slot is actived: [[allowSlot]]</paper-toggle-button>
+                <paper-textarea id="slot" label="slot content" value="{{slotted}}" on-value-changed="_setProperties"></paper-textarea>
               </div>
-            </template>
-          </div>
+            </div>
+          </template>
         </iron-pages>
       </div>
 
