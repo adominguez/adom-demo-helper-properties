@@ -17,6 +17,10 @@
         type: String,
         observer: '_setFile'
       },
+      _fileHtml: {
+        type: String,
+        observer: '_setFileHtml'
+      },
       _scss: {
         type: String,
         observer: '_setScss'
@@ -27,9 +31,16 @@
           return [];
         }
       },
+      _slot: {
+        type: String,
+        observer: '_setSlot'
+      },
       slot: {
-        type: Boolean,
-        value: true,
+        type: String,
+        value: '_slotted',
+      },
+      slotted: {
+        type: String
       },
       /**
        * set the events fired
@@ -40,6 +51,10 @@
           return [];
         },
         notify: true,
+      },
+      allowSlot: {
+        type: Boolean,
+        value: false
       },
       /**
        * component properties setted
@@ -91,6 +106,7 @@
       this.$$('#heading').innerHTML = this.children[0].getAttribute('data-heading');
       this.$$('#description').innerHTML = this.children[0].getAttribute('data-description');
       this._file = '../bower_components/' + componentName + '/' + componentName + '-styles.html';
+      this._fileHtml = '../bower_components/' + componentName + '/' + componentName + '.html';
     },
 
     _setFile: function() {
@@ -109,6 +125,34 @@
         else if (self._file !== secondFile) {
           self._file = secondFile;
           self._setFile();
+        }
+        else {
+          self._propertiesBinded = self.propertiesSetted;
+          console.error('file not found');
+        }
+      };
+      request.onerror = function () {
+        ajaxErr(request);
+      };
+      request.send();
+    },
+
+    _setFileHtml: function() {
+      var self = this;
+      /**
+       * Call for get the scss file of component
+       */
+      var request = new XMLHttpRequest();
+      request.open('GET', self._fileHtml, true);
+      var secondFile = '../' + self.componentName + '.html';
+      request.onload = function () {
+        if (request.status >= 200 && request.status < 400) {
+          // Save the scss in a property
+          self._slot = request.responseText;
+        }
+        else if (self._file !== secondFile) {
+          self._fileHtml = secondFile;
+          self._setFileHtml();
         }
         else {
           self._propertiesBinded = self.propertiesSetted;
@@ -168,6 +212,15 @@
       }
 
       /**
+       * Do the fragment of slot
+       */
+      if(this.allowSlot) {
+        slot = this.slotted;
+      } else {
+        slot = '';
+      }
+
+      /**
        * Do the fragment script for the methods in component
        */
       if((this.methods) && (this.methods !== [])) {
@@ -190,7 +243,9 @@
        */
       html = `<template is="dom-bind" id="demo">
       ${style}
-      <${this.componentName} ${newProperties} id="component" ></${this.componentName}>
+      <${this.componentName} ${newProperties} id="component" >
+      ${slot}
+      </${this.componentName}>
       ${script}
       </template>`
       snippet = '<'+ this.componentName + ' ' + newProperties + '></'+ this.componentName + '>'
@@ -223,6 +278,43 @@
       }
       this._mixins = mixin;
       this._propertiesBinded = this.propertiesSetted;
+    },
+
+    _setSlot: function (_slot) {
+      var arraySlot = [];
+      var array = [];
+      var slot = '';
+      // Find the first word
+      var reg1 = /([^\s]+)/;
+      for (var i = 0; i < _slot.split('<slot').length; i++) {
+        if (i > 0) {
+          if(_slot.split('<slot name="')[i]) {
+            var item = _slot.split('<slot name="')[i].match(reg1)[0].slice(0, -2);
+          } else {
+            var item = ""
+          }
+          if(array.indexOf(item) === -1) {
+            arraySlot.push({
+              "slot": item
+            });
+            array.push(item)
+          }
+        }
+      }
+      this.slot = arraySlot;
+      for(var i = 0; i < this.slot.length; i++) {
+        if(this.slot[i].slot !== "") {
+      slot += `
+      <div slot="${this.slot[i].slot}">
+      </div>`;
+        } else {
+      slot += `
+      <div>
+      slot without name
+      </div>`;
+        }
+      }
+      this.slotted = slot;
     },
 
     _computeColor: function(item) {
