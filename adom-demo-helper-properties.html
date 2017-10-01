@@ -1,5 +1,10 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-tabs/paper-tabs.html">
+<link rel="import" href="../paper-tabs/paper-tab.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../vaadin-icons/vaadin-icons.html">
 <link rel="import" href="../paper-toast/paper-toast.html">
 <link rel="import" href="../paper-swatch-picker/paper-swatch-picker.html">
 <link rel="import" href="../paper-input/paper-input.html">
@@ -114,37 +119,60 @@ Custom property                           | Description                         
         <h1 id="heading" class="contentPage__info__heading"></h1>
         <span id="description" class="contentPage__info__description"></span>
       </div>
-      <h3>Component properties</h3>
-      <div class="contentPage__properties">
-        <template is="dom-repeat" items="[[_propertiesBinded]]">
-          <template is="dom-if" if="[[!item.list]]">
-            <template is="dom-if" if="[[item.color]]">
-              <paper-swatch-picker color="{{item.value}}" on-color-changed="_setProperties"></paper-swatch-picker>
-            </template>
-            <paper-input label="[[item.label]]" type="[[item.type]]" value="{{item.value}}" on-value-changed="_setProperties">
-            </paper-input>
-          </template>
-          <template is="dom-if" if="[[item.list]]">
-            <paper-dropdown-menu label="[[item.label]]">
-              <paper-listbox slot="dropdown-content" selected="{{item.selected}}" on-selected-changed="_setProperties">
-                <template is="dom-repeat" items="[[item.list]]" as="list">
-                  <paper-item>[[list.value]]</paper-item>
-                </template>
-              </paper-listbox>
-            </paper-dropdown-menu>
-          </template>
-        </template>
-      </div>
 
-      <h3>Component css vars</h3>
-      <div class="contentPage__properties">
-        <template is="dom-repeat" items="[[_mixins]]">
-          <template is="dom-if" if="[[_computeColor(item)]]">
-            <paper-swatch-picker color="{{item.value}}" on-color-changed="_setProperties"></paper-swatch-picker>
+      <div class="tabs">
+        <paper-tabs selected="{{selected}}" noink>
+          <template is="dom-if" if="[[_propertiesBinded]]">
+            <paper-tab>
+              <iron-icon icon="vaadin:code"></iron-icon>Component properties</paper-tab>
           </template>
-          <paper-input label="[[item.mixin]]" type="text" value="{{item.value}}" on-value-changed="_setProperties">
-          </paper-input>
-        </template>
+          <template is="dom-if" if="[[_mixins]]">
+            <paper-tab>
+              <iron-icon icon="vaadin:paintbrush"></iron-icon>Component css vars</paper-tab>
+          </template>
+        </paper-tabs>
+
+        <iron-pages selected="{{selected}}">
+          <div class="selected">
+            <template is="dom-if" if="[[_propertiesBinded]]">
+              <h3>Component properties</h3>
+              <div class="contentPage__properties">
+                <template is="dom-repeat" items="[[_propertiesBinded]]">
+                  <template is="dom-if" if="[[!item.list]]">
+                    <template is="dom-if" if="[[item.color]]">
+                      <paper-swatch-picker color="{{item.value}}" on-color-changed="_setProperties"></paper-swatch-picker>
+                    </template>
+                    <paper-input label="[[item.label]]" type="[[item.type]]" value="{{item.value}}" on-value-changed="_setProperties">
+                    </paper-input>
+                  </template>
+                  <template is="dom-if" if="[[item.list]]">
+                    <paper-dropdown-menu label="[[item.label]]">
+                      <paper-listbox slot="dropdown-content" selected="{{item.selected}}" on-selected-changed="_setProperties">
+                        <template is="dom-repeat" items="[[item.list]]" as="list">
+                          <paper-item>[[list.value]]</paper-item>
+                        </template>
+                      </paper-listbox>
+                    </paper-dropdown-menu>
+                  </template>
+                </template>
+              </div>
+            </template>
+          </div>
+          <div class="selected">
+            <template is="dom-if" if="[[_mixins]]">
+              <h3>Component css vars</h3>
+              <div class="contentPage__properties">
+                <template is="dom-repeat" items="[[_mixins]]">
+                  <template is="dom-if" if="[[_computeColor(item)]]">
+                    <paper-swatch-picker color="{{item.value}}" on-color-changed="_setProperties"></paper-swatch-picker>
+                  </template>
+                  <paper-input label="[[item.mixin]]" type="text" value="{{item.value}}" on-value-changed="_setProperties">
+                  </paper-input>
+                </template>
+              </div>
+            </template>
+          </div>
+        </iron-pages>
       </div>
 
       <content id="content"></content>
