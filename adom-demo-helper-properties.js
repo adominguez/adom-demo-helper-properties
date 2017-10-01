@@ -37,7 +37,9 @@
         },
         notify: true,
       },
-
+      /**
+       * component properties setted
+       */
       propertiesSetted: {
         type: Array,
         value: function () {
@@ -52,6 +54,15 @@
         },
         notify: true,
         observer: '_setProperties'
+      },
+      /**
+       * selected in paper-tabs
+       */
+      selected: {
+        type: Number,
+        value: 0,
+        notify: true,
+        reflectToAttribute: true
       }
     },
 
@@ -66,12 +77,12 @@
       }
     },
 
-
     _setHeading: function (componentName) {
       this.$$('#heading').innerHTML = this.children[0].getAttribute('data-heading');
       this.$$('#description').innerHTML = this.children[0].getAttribute('data-description');
       this._file = '../bower_components/' + componentName + '/' + componentName + '-styles.html';
     },
+
     _setFile: function() {
       var self = this;
       /**
@@ -99,10 +110,12 @@
       };
       request.send();
     },
+
     _showToast: function (e) {
       this.$$('#toast').text = e.type;
       this.$$('#toast').open();
     },
+
     _setProperties: function () {
       var newProperties = "";
       var html = "";
@@ -143,6 +156,7 @@
       this.children[0].innerHTML = html;
       this.children[0]._markdown = '```' + snippet + '```';
     },
+
     _setScss: function (_scss) {
       var mixin = [];
       var array = []
