@@ -125,22 +125,22 @@ Custom property                           | Description                         
 
       <div class="tabs">
         <paper-tabs selected="{{selected}}" noink scrollable>
-          <template is="dom-if" if="[[_propertiesBinded]]">
+          <template is="dom-if" if="[[_propertiesBinded.length]]">
             <paper-tab>
               <iron-icon icon="vaadin:curly-brackets"></iron-icon>Component properties
             </paper-tab>
           </template>
-          <template is="dom-if" if="[[_mixins]]">
+          <template is="dom-if" if="[[_mixins.length]]">
             <paper-tab>
               <iron-icon icon="vaadin:paintbrush"></iron-icon>Component css vars
             </paper-tab>
           </template>
-          <template is="dom-if" if="[[methods]]">
+          <template is="dom-if" if="[[methods.length]]">
             <paper-tab>
               <iron-icon icon="vaadin:file-tree-sub"></iron-icon>Component methods
             </paper-tab>
           </template>
-          <template is="dom-if" if="[[slot]]">
+          <template is="dom-if" if="[[slot.length]]">
             <paper-tab>
               <iron-icon icon="vaadin:code"></iron-icon>Component slot
             </paper-tab>
@@ -148,7 +148,7 @@ Custom property                           | Description                         
         </paper-tabs>
 
         <iron-pages selected="{{selected}}">
-          <template is="dom-if" if="[[_propertiesBinded]]">
+          <template is="dom-if" if="[[_propertiesBinded.length]]">
             <div class="selected">
               <h3>Component properties</h3>
               <div class="contentPage__properties">
@@ -173,7 +173,7 @@ Custom property                           | Description                         
               </div>
             </div>
           </template>
-          <template is="dom-if" if="[[_mixins]]">
+          <template is="dom-if" if="[[_mixins.length]]">
             <div class="selected">
               <h3>Component css vars</h3>
               <div class="contentPage__properties">
@@ -187,7 +187,7 @@ Custom property                           | Description                         
               </div>
             </div>
           </template>
-          <template is="dom-if" if="[[methods]]">
+          <template is="dom-if" if="[[methods.length]]">
             <div class="selected">
               <h3>Component methods</h3>
               <div class="contentPage__properties">
@@ -197,7 +197,7 @@ Custom property                           | Description                         
               </div>
             </div>
           </template>
-          <template is="dom-if" if="[[slot]]">
+          <template is="dom-if" if="[[slot.length]]">
             <div class="selected">
               <h3>Component slot</h3>
               <div class="contentPage__properties">
