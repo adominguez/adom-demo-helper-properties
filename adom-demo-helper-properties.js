@@ -36,8 +36,7 @@
         observer: '_setSlot'
       },
       slot: {
-        type: String,
-        value: '_slotted',
+        type: String
       },
       slotted: {
         type: String
@@ -297,7 +296,7 @@
             arraySlot.push({
               "slot": item
             });
-            array.push(item)
+            array.push(item);
           }
         }
       }
