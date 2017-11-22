@@ -32,6 +32,13 @@ iron-icon {
 paper-textarea {
   width: 100%; }
 
+.devices {
+  margin-right: 20px;
+  padding-top: 20px; }
+  .devices__icon {
+    margin-right: 10px;
+    cursor: pointer; }
+
 .contentPage {
   margin: 1em;
   @apply (--adom-demo-helper-properties-content-page); }

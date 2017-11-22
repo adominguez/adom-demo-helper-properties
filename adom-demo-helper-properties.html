@@ -126,6 +126,9 @@ Custom property                           | Description                         
 
       <div class="tabs">
         <paper-tabs selected="{{selected}}" noink scrollable>
+          <paper-tab>
+            <iron-icon icon="vaadin:mobile-browser"></iron-icon>Component responsive
+          </paper-tab>
           <template is="dom-if" if="[[_propertiesBinded.length]]">
             <paper-tab>
               <iron-icon icon="vaadin:curly-brackets"></iron-icon>Component properties
@@ -154,6 +157,21 @@ Custom property                           | Description                         
         </paper-tabs>
 
         <iron-pages selected="{{selected}}">
+          <div class="selected">
+            <h3>Component responsive</h3>
+            <div class="contentPage__properties">
+              <div class="devices">
+                <iron-icon class="devices__icon" icon="vaadin:mobile" id="mobile" on-tap="setDevice"></iron-icon>
+                <iron-icon class="devices__icon" icon="vaadin:tablet" id="tablet" on-tap="setDevice"></iron-icon>
+                <iron-icon class="devices__icon" icon="vaadin:browser" id="desktop" on-tap="setDevice"></iron-icon>
+                <iron-icon class="devices__icon" icon="vaadin:expand-full" id="fullsize" on-tap="setDevice"></iron-icon>
+              </div>
+              <paper-input label="width" type="number" value="{{width}}" on-value-changed="_setProperties">
+              </paper-input>
+              <paper-input label="height" type="number" value="{{height}}" on-value-changed="_setProperties">
+              </paper-input>
+            </div>
+          </div>
           <template is="dom-if" if="[[_propertiesBinded.length]]">
             <div class="selected">
               <h3>Component properties</h3>

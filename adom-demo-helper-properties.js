@@ -13,6 +13,20 @@
         type: String,
         observer: '_setHeading'
       },
+      /**
+       * set width of iframe
+       */
+      width: {
+        type: Number,
+        value: 360
+      },
+      /**
+       * set height of iframe
+       */
+      height: {
+        type: Number,
+        value: 480
+      },
       _file: {
         type: String,
         observer: '_setFile'
@@ -113,6 +127,26 @@
           }
         })
       }
+    },
+
+    setDevice: function(event) {
+      if(event.target.id === 'mobile') {
+        this.width = 360;
+        this.height = 480;
+      }
+      if(event.target.id === 'tablet') {
+        this.width = 768;
+        this.height = 1024;
+      }
+      if(event.target.id === 'desktop') {
+        this.width = 1024;
+        this.height = 768;
+      }
+      if(event.target.id === 'fullsize') {
+        this.width = null;
+        this.height = null;
+      }
+      this._setProperties();
     },
 
     _setHeading: function (componentName) {
@@ -221,7 +255,11 @@
           }
         } else {
           if (!this._propertiesBinded[i].list) {
-            newProperties += this._propertiesBinded[i].label + '="' + this._propertiesBinded[i].value + '" '
+            if(this._propertiesBinded[i].type === 'array') {
+              newProperties += this._propertiesBinded[i].label + "='" + this._propertiesBinded[i].value + "'";
+            } else {
+              newProperties += this._propertiesBinded[i].label + '="' + this._propertiesBinded[i].value + '" '
+            }
           }
         }
       }
@@ -277,6 +315,16 @@
       snippet = '<'+ this.componentName + ' ' + propertyData.newProperties + '></'+ this.componentName + '>'
       this.children[0].innerHTML = html;
       this.children[0]._markdown = '```' + snippet + '```';
+
+      this.dispatchEvent(new CustomEvent('set-properties', {
+        bubbles: true,
+        composed: true,
+        detail: {
+          "width": this.width,
+          "height": this.height,
+          "component": this.componentName
+        }
+      }));
     },
 
     _setScss: function (_scss) {
