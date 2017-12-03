@@ -151,25 +151,31 @@
       }
     },
 
-    ready: function () {
-      Polymer.RenderStatus.afterNextRender(this, function() {
-        var that = this;
-        this._eventsComponent.forEach(function(element) {
-          window.addEventListener(element.name, function (e) {
-            alert('envia evento')
-            that._showToast(e);
-            if(e.detail !== null) {
-              that.$.toastContent.innerHTML=e.detail
-            }
-          })
-        })
+    _setEvents: function () {
+      var events = '';
+      this._eventsComponent.forEach(function(element) {
+        events += `
+          this.addEventListener('${element.name}', function(e) {
+            showToast('${element.name}' , e);
+          });
+        `
       });
-    },
-
-    _showToast: function (e) {
-      console.log('pasando por aquí')
-      this.$$('#toast').text = e.type;
-      this.$$('#toast').open();
+      events += `
+        function showToast(event, e) {
+          document.querySelector('#toast').classList.add('show');
+          document.querySelector('#toastEvent').innerHTML = '<span class="text">event:</span> ' + event;
+          if(e.detail) {
+            document.querySelector('#detail').innerHTML = '<span class="text">detail:</span> ' + e.detail;
+          }
+          setTimeout(function() {
+            removeToast();
+          }, 10000);
+        }
+        function removeToast() {
+          document.querySelector('#toast').classList.remove('show');
+        }
+      `
+      return events;
     },
 
     _getBower: function () {
@@ -448,12 +454,48 @@
             padding: ${this.padding}px;
             box-sizing: border-box;
           }
+          .toast {
+            outline: none;
+            position: fixed;
+            box-sizing: border-box;
+            left: 10px;
+            top: 0;
+            transform: translateY(-100px);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #d32f2f;
+            border-radius: 5px;
+            transition: transform ease 200ms;
+            padding: 8px;
+            font-weight: 100;
+          }
+          .show {
+            transform: translateY(10px);
+            outline: none;
+            z-index: 103;
+            display: block;
+          }
+          .detail {
+            color: #0097a7;
+          }
+          .text {
+            color: white;
+            font-weight: bolder;
+          }
         </style>
       </head>
       <body>
         <template is="dom-bind">
           ${this.builtComponent}
-        </template>
+          </template>
+        <div id="toast" class="toast" onClick="removeToast()">
+          <div class="toastEvent" id="toastEvent">
+          </div>
+          <div class="detail" id="detail">
+          </div>
+        </div>
+        <script>
+          ${this._setEvents()}
+        </script>
       </body>
       </html>
       `
