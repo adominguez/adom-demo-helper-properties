@@ -382,6 +382,17 @@
         this.$.titleView.innerHTML = 'Documentación';
       }
     },
+    /**
+     * Copy the component on click in the button copy
+     */
+    copyContent: function() {
+      var iconCopy = this.$.iconCopy;
+      this._contentCopy(this.$.code);
+      iconCopy.icon = "vaadin:copy";
+      setTimeout(function() {
+        iconCopy.icon = "vaadin:file-o";
+      }, 3000);
+    },
     _buildComponent: function () {
       var properties = '';
       var styles = '';
@@ -419,9 +430,9 @@
 
       this.builtComponent = `
       <style is="custom-style">
-      ${this.componentName} {
-        ${styles}
-      }
+        ${this.componentName} {
+          ${styles}
+        }
       </style>
       <${this.componentName} ${properties}>
       ${this.allowSlot ? this._slotted : ''}
@@ -499,6 +510,28 @@
       </body>
       </html>
       `
+    },
+    _contentCopy: function(element) {
+      var snipRange = document.createRange();
+      snipRange.selectNodeContents(element);
+      var selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(snipRange);
+      var result = false;
+      try {
+        result = document.execCommand('copy');
+        this.dispatchEvent(new CustomEvent('content-copied', {
+          bubbles: true,
+          composed: true,
+          detail: result
+        }));
+      } catch (err) {
+        // Copy command is not available
+        Polymer.Base._error(err);
+      }
+
+      selection.removeAllRanges();
+      return result;
     }
 
   });
