@@ -24,6 +24,13 @@
         value: '../../bower.json'
       },
       /**
+       * Is the route of package.json component by default is ../../bower.json
+       */
+      package: {
+        type: String,
+        value: '../../package.json'
+      },
+      /**
        * Is the route of analysis.json component by default is '../../analysis.json'
        */
       descriptorUrl: {
@@ -37,6 +44,12 @@
         type: String
       },
       _metadata: {
+        type: Object,
+        value: function () {
+          return {};
+        }
+      },
+      _package: {
         type: Object,
         value: function () {
           return {};
@@ -58,9 +71,9 @@
         },
       },
       _cssMixins: {
-        type: Object,
+        type: Array,
         value: function () {
-          return {};
+          return [];
         },
       },
       _propertiesComponent: {
@@ -76,9 +89,9 @@
         }
       },
       _methodsComponent: {
-        type: Object,
+        type: Array,
         value: function () {
-          return {};
+          return [];
         }
       },
       _slotsComponent: {
@@ -182,10 +195,16 @@
     },
 
     _getBower: function () {
-
+      this.$.clone.querySelector('code').innerHTML = '$ git clone ' + this._metadata.repository.url
     },
     _getBowerError: function () {
       console.error('This component has problem to show the bower, please define bower property with your route');
+    },
+    _getPackage: function() {
+
+    },
+    _getPackageError: function () {
+      console.error('This component has problem to show the bower, please define package property with your route');
     },
     _getCss: function (e) {
       this._cssVarsformated();
@@ -244,6 +263,7 @@
     _getAnalysis: function () {
       var properties = [];
       var slots = [];
+      var methods = [];
       //Formated Array for _propertiesComponent
       this._analysis.elements[0].properties.forEach(function (element) {
         properties.push({
@@ -261,7 +281,15 @@
       //Formated Array for _eventsComponent
       this.set('_eventsComponent', this._analysis.elements[0].events);
       //Formated Array for _methodsComponent
-      this.set('_methodsComponent', this._analysis.elements[0].methods);
+      this._analysis.elements[0].methods.forEach(function(element) {
+        methods.push({
+          "name": element.name,
+          "description": element.description,
+          "privacy": element.privacy,
+          "params": element.params
+        });
+      });
+      this._methodsComponent = methods;
       //Formated Array for _slotsComponent
       this._analysis.elements[0].slots.forEach(function(element) {
         slots.push({
@@ -311,6 +339,9 @@
     },
     _computeProperties: function (property) {
       return property.privacy === 'public' ? false : true;
+    },
+    _computeMethods: function (property) {
+      return property.privacy === 'protected' ? true : false;
     },
     _computeType: function(property) {
       if (property.type === "boolean") {
@@ -537,6 +568,16 @@
 
       selection.removeAllRanges();
       return result;
+    },
+
+    _computePackage: function() {
+      return this._package ? false : true
+    },
+    _computeBower: function() {
+      return this._metadata ? false : true
+    },
+    _computeSlotDoc: function() {
+      return this._slotsComponent !== [] ? false : true;
     }
 
   });

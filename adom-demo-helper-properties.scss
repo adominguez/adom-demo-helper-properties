@@ -98,6 +98,102 @@
         transform: translateX(0);
         transition: transform ease 200ms;
         overflow: hidden;
+        &__doc {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          height: 100%;
+          &__left-panel {
+            flex: 1;
+            background-color: #212121;
+            color: white;
+            padding: 24px 36px;
+            &__button {
+              background-color: transparent;
+              width: 100%;
+              border: 0;
+              border-bottom: 1px solid #666;
+              padding: 24px;
+              font-size: 16px;
+              color: #666;
+              text-align: left;
+              font-weight: lighter;
+              display: flex;
+              align-items: flex-end;
+              transition: padding ease 200ms, font-weight ease 200ms, color ease 200ms;
+            }
+            &__button:hover {
+              padding: 24px 8px;
+              font-weight: bold;
+              color: #fff;
+            }
+          }
+          &__right-panel {
+            flex: 4;
+            padding: 24px;
+            &__doc-view {
+              margin: 24px 0;
+              &__content {
+                padding: 0 0 0 12px;
+              }
+              &__content .wrap {
+                padding: 12px;
+                background-color: #e2e2e2;
+              }
+              &__content .flex {
+                display: flex;
+                flex-direction: row;
+              }
+              &__content .column1 {
+                flex: 1;
+              }
+              &__content .column2 {
+                flex: 1;
+              }
+              &__content .column3 {
+                flex: 1 ;
+              }
+              &__content .right {
+                text-align: right;
+              }
+              &__content .center {
+                text-align: center;
+              }
+              &__content .light {
+                color: #999;
+              }
+              &__content .blue {
+                color: #2196f3;
+              }
+            }
+            &__doc-view:first-of-type {
+              margin: 0;
+            }
+          }
+          &__right-panel h3{
+            color: #212121;
+            margin: 8px 0;
+          }
+          &__right-panel pre{
+            background-color: #e2e2e2;
+            padding: 16px;
+            max-width: 600px;
+            white-space: pre-wrap;
+          }
+          &__right-panel code{
+            white-space: pre-wrap;
+          }
+          &__right-panel table{
+            background-color: #e2e2e2;
+            padding: 8px;
+          }
+          &__right-panel td{
+            min-width: 100px;
+          }
+          &__right-panel .left{
+            text-align: left;
+          }
+        }
         &__tabs {
           position: relative;
           box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.6);

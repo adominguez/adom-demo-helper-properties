@@ -37,6 +37,7 @@ Is a component created for to be used in other demo components with properties
     <iron-ajax auto url="[[bower]]" handle-as="json" last-response="{{_metadata}}" on-response="_getBower" on-error="_getBowerError"></iron-ajax>
     <iron-ajax auto url="[[descriptorUrl]]" handle-as="json" last-response="{{_analysis}}" on-response="_getAnalysis" on-error="_getAnalysisError"></iron-ajax>
     <iron-ajax auto url="[[cssUrl]]" handle-as="text" last-response="{{_cssStyles}}" on-response="_getCss" on-error="_getCssError"></iron-ajax>
+    <iron-ajax auto url="[[package]]" handle-as="text" last-response="{{_package}}" on-response="_getPackage" on-error="_getPackageError"></iron-ajax>
 
     <article class="main">
       <h1 class="main__title">
@@ -73,9 +74,192 @@ Is a component created for to be used in other demo components with properties
           </div>
         </div>
         <div class="main__content__wrap">
-          <div id="viewDoc" class="main__content__wrap__views">Contenido doc</div>
+          <div id="viewDoc" class="main__content__wrap__views">
+            <div class="main__content__wrap__views__doc">
+              <div class="main__content__wrap__views__doc__left-panel">
+                <button class="main__content__wrap__views__doc__left-panel__button">
+                  <iron-icon icon="vaadin:arrow-circle-down-o"></iron-icon>
+                  Installation
+                </button>
+                <button class="main__content__wrap__views__doc__left-panel__button">
+                  <iron-icon icon="vaadin:clipboard-text"></iron-icon>
+                  Description
+                </button>
+                <button class="main__content__wrap__views__doc__left-panel__button">
+                  <iron-icon icon="vaadin:insert"></iron-icon>
+                  Slot
+                </button>
+                <button class="main__content__wrap__views__doc__left-panel__button">
+                  <iron-icon icon="vaadin:fill"></iron-icon>
+                  Styling
+                </button>
+                <button class="main__content__wrap__views__doc__left-panel__button">
+                  <iron-icon icon="vaadin:road-branches"></iron-icon>
+                  Properties
+                </button>
+                <button class="main__content__wrap__views__doc__left-panel__button">
+                  <iron-icon icon="vaadin:compile"></iron-icon>
+                  Methods
+                </button>
+                <button class="main__content__wrap__views__doc__left-panel__button">
+                  <iron-icon icon="vaadin:share-square"></iron-icon>
+                  Events
+                </button>
+              </div>
+              <div class="main__content__wrap__views__doc__right-panel">
+                <div id="installation" class="main__content__wrap__views__doc__right-panel__doc-view">
+                  <h3>Installation</h3>
+                  <div class="main__content__wrap__views__doc__right-panel__doc-view__content">
+                    <p>It´s necessary to have installed npm and git.</p>
+                    <p>clone the repo in your local machine:</p>
+                    <marked-element>
+                      <div class="markdown-html code" id="clone"></div>
+                      <script type="text/markdown">
+                        ``` $ git clone ```
+                      </script>
+                    </marked-element>
+                    <p hidden$="[[_computePackage]]">Install the package dependencies using npm:</p>
+                    <marked-element hidden$="[[_computePackage]]">
+                      <div class="markdown-html code"></div>
+                      <script type="text/markdown">
+                        ``` $ npm install ```
+                      </script>
+                    </marked-element>
+                    <p hidden$="[[_computePackage]]">Install the bower dependencies using npm:</p>
+                    <marked-element hidden$="[[_computePackage]]">
+                      <div class="markdown-html code"></div>
+                      <script type="text/markdown">
+                        ``` $ bower install ```
+                      </script>
+                    </marked-element>
+                    <p hidden$="[[_computePackage]]">Serve the component in your local machine:</p>
+                    <marked-element>
+                      <div class="markdown-html code"></div>
+                      <script type="text/markdown">
+                        ``` $ gulp serve ```
+                      </script>
+                    </marked-element>
+                  </div>
+                </div>
+                <div id="description" class="main__content__wrap__views__doc__right-panel__doc-view">
+                  <h3>Description</h3>
+                  <div class="main__content__wrap__views__doc__right-panel__doc-view__content">
+                    <prism-highlighter></prism-highlighter>
+                    <marked-element markdown="[[_componentDescription]]">
+                      <div class="markdown-html code"></div>
+                      <script type="text/markdown">
+                      </script>
+                    </marked-element>
+                  </div>
+                </div>
+                <div id="docSlot" class="main__content__wrap__views__doc__right-panel__doc-view" hidden$="[[_computeSlotDoc]]">
+                  <h3>Slot</h3>
+                  <div class="main__content__wrap__views__doc__right-panel__doc-view__content">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Slot</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <template is="dom-repeat" items="[[_slotsComponent]]">
+                          <tr>
+                            <td>[[item.name]]</td>
+                          </tr>
+                        </template>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div id="docStyling" class="main__content__wrap__views__doc__right-panel__doc-view">
+                  <h3>Styling</h3>
+                  <div class="main__content__wrap__views__doc__right-panel__doc-view__content">
+                    <p>The following custom properties and mixins are available for styling:</p>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th class="left">Custom property</th>
+                          <th class="left">Description</th>
+                          <th class="left">Default</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <template is="dom-repeat" items="[[_cssVars]]">
+                          <tr>
+                            <td>[[item.varName]]</td>
+                            <td>[[item.description]]</td>
+                            <td>[[item.value]]</td>
+                          </tr>
+                        </template>
+                        <template is="dom-repeat" items="[[_cssMixins]]">
+                          <tr>
+                            <td>[[item.mixin]]</td>
+                            <td>[[item.description]]</td>
+                            <td>{}</td>
+                          </tr>
+                        </template>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div id="docProperties" class="main__content__wrap__views__doc__right-panel__doc-view">
+                  <h3>Properties</h3>
+                  <div class="main__content__wrap__views__doc__right-panel__doc-view__content">
+                    <template is="dom-repeat" items="[[_propertiesComponent]]">
+                      <div class="wrap" hidden$="[[_computeProperties(item)]]">
+                        <div class="flex">
+                          <div class="column1">
+                            <strong>[[item.name]]</strong><span class="blue"> ([[item.type]])</span>
+                          </div>
+                          <div class="column2">
+                            [[item.description]]
+                          </div>
+                          <div class="column3 right light">
+                            [[item.defaultValue]]
+                          </div>
+                        </div>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+                <div id="docEvents" class="main__content__wrap__views__doc__right-panel__doc-view">
+                  <h3>Methods</h3>
+                  <div class="main__content__wrap__views__doc__right-panel__doc-view__content">
+                    <template is="dom-repeat" items="[[_methodsComponent]]">
+                      <div class="wrap" hidden$="[[_computeMethods(item)]]">
+                        <div class="flex">
+                          <div class="column1">
+                            <strong>[[item.name]]()</strong>
+                          </div>
+                          <div class="column2 right">
+                            [[item.description]]
+                          </div>
+                        </div>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+                <div id="docEvents" class="main__content__wrap__views__doc__right-panel__doc-view">
+                  <h3>Events</h3>
+                  <div class="main__content__wrap__views__doc__right-panel__doc-view__content">
+                    <template is="dom-repeat" items="[[_eventsComponent]]">
+                      <div class="wrap">
+                        <div class="flex">
+                          <div class="column1">
+                            <strong>[[item.name]]</strong>
+                          </div>
+                          <div class="column2 right">
+                            [[item.description]]
+                          </div>
+                        </div>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div id="viewDemo" class="main__content__wrap__views">
-
             <div class="main__content__wrap__views__tabs">
               <paper-tabs selected="{{optionSelected}}" noink scrollable>
                 <paper-tab>
