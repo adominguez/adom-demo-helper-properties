@@ -13,6 +13,9 @@
         type: String,
         observer: '_setComponentName'
       },
+      _componentDescription: {
+        type: String
+      },
       /**
        * Is the route of bower.json component by default is ../../bower.json
        */
@@ -253,6 +256,8 @@
           "special": element.name.slice(-5) === 'color' ? 'color' : ''
         });
       });
+      //Formated Array for _eventsComponent
+      this.set('_componentDescription', this._analysis.elements[0].description);
       //Formated Array for _eventsComponent
       this.set('_eventsComponent', this._analysis.elements[0].events);
       //Formated Array for _methodsComponent
