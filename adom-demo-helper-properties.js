@@ -143,7 +143,7 @@
       /**
        * This show the built of component
        */
-      builtComponent: {
+      _builtComponent: {
         type: String
       },
       /**
@@ -490,7 +490,7 @@
 
       this.allowSlot = this.$.checkSlot.checked;
 
-      this.builtComponent = `
+      this._builtComponent = `
       <style is="custom-style">
         ${this.componentName} {
           ${styles}
@@ -558,7 +558,7 @@
       </head>
       <body>
         <template is="dom-bind">
-          ${this.builtComponent}
+          ${this._builtComponent}
           </template>
         <div id="toast" class="toast" onClick="removeToast()">
           <div class="toastEvent" id="toastEvent">
