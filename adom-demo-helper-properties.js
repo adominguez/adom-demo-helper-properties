@@ -173,9 +173,6 @@
         var docView = this.shadowRoot.querySelectorAll('.main__content__wrap__views__doc__right-panel__doc-view');
         window.addEventListener('scroll', function() {
           self.$.installation
-          //console.log(pageYOffset + 'px');
-          /*console.log('pageYOffset', pageYOffset)
-          console.log('pageXOffset', pageXOffset)*/
           if(pageYOffset === 0) {
             self.$.menuDoc.style.top = '300px';
           }
@@ -186,6 +183,11 @@
             self.$.menuDoc.style.top = 0;
           }
         });
+        this._getResize(550);
+        var self = this;
+        window.addEventListener('resize', function() {
+          self._getResize(550);
+        })
       })
     },
 
@@ -611,6 +613,12 @@
         element.classList.remove('active');
       });
       e.currentTarget.classList.add('active')
+    },
+    _getResize: function(resize) {
+      var self = this;
+      if(window.innerWidth < resize) {
+        self.$.fullsize.click();
+      }
     }
 
   });

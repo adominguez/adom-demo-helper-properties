@@ -335,3 +335,17 @@ paper-swatch-picker {
   background: #e2e2e2;
   border-radius: 30px;
   height: 56px; }
+
+@media (max-width: 550px) {
+  #mobile {
+    display: none; } }
+
+@media (max-width: 769px) {
+  .main__content__wrap__views__doc__left-panel,
+  .menuDoc,
+  #tablet {
+    display: none; } }
+
+@media (max-width: 1024px) {
+  #desktop {
+    display: none; } }
