@@ -27,7 +27,96 @@
 `adom-demo-helper-properties`
 Is a component created for to be used in other demo components with properties
 
-@demo demo/index.html
+For use it you must import it as devDependency in your component. In your demo file import it.
+
+__For example:__
+
+```
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>Your component description</title>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script>
+    window.Polymer = {
+      dom: 'shadow',
+      lazyRegister: 'true',
+      useNativeCSSProperties: 'true'
+    }
+  </script>
+
+
+  <link rel="import" href="../../adom-demo-helper-properties/adom-demo-helper-properties.html">
+
+  <style is="custom-style" include="adom-demo-helper-propeties-shared-styles">
+    /*Common styles*/
+    body {
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <adom-demo-helper-properties component-name="your-component-name">
+  </adom-demo-helper-properties>
+</body>
+
+</html>
+```
+
+__Required attributes__
+
+`componentName` (String): this attribute is required, insert the name of your component
+
+```
+<adom-demo-helper-properties component-name="your-component-name">
+</adom-demo-helper-properties>
+```
+
+__Other attributes__
+
+`padding` (Number): you can use the attribute padding for set a padding into the device.
+
+```
+<adom-demo-helper-properties component-name="your-component-name" padding="20">
+</adom-demo-helper-properties>
+```
+
+`device` (Array): with this property is possible to change the size of the views.
+
+```
+<adom-demo-helper-properties component-name="your-component-name" device='{"width" : "500px", "height" : "700px"}'>
+</adom-demo-helper-properties>
+```
+
+`showDemo` (Boolean): If this property is true the demo is shown.
+
+```
+<adom-demo-helper-properties component-name="your-component-name" show-demo>
+</adom-demo-helper-properties>
+```
+
+`optionSelected` (Number): This property define the number of selected option in the demo.
+
+```
+<adom-demo-helper-properties component-name="your-component-name" option-selected="2">
+</adom-demo-helper-properties>
+```
+
+`allowSlot` (Boolean): If this property is true the slot is enabled in the demo.
+
+```
+<adom-demo-helper-properties component-name="your-component-name" allow-slot>
+</adom-demo-helper-properties>
+```
+
+The properties `bower`, `package`, `descriptorUrl` and `cssUrl` are the url from differents files. They are necessary for this component.
+
 -->
 
 <dom-module id="adom-demo-helper-properties">
@@ -366,7 +455,7 @@ Is a component created for to be used in other demo components with properties
             <div class="main__content__wrap__views__code">
               <paper-icon-button id="iconCopy" icon="vaadin:file-o" title="copy" class="main__content__wrap__views__code__copy" on-tap="copyContent"></paper-icon-button>
               <prism-highlighter></prism-highlighter>
-              <marked-element class="main__content__wrap__views__code__marked" id="marked" markdown="[[builtComponent]]">
+              <marked-element class="main__content__wrap__views__code__marked" id="marked" markdown="[[_builtComponent]]">
                 <div class="markdown-html code" id="code"></div>
                 <script type="text/markdown">
                 </script>
