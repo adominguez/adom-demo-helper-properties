@@ -430,14 +430,16 @@
     _setDemo: function (value) {
       if (value) {
         this.$.selector.classList.add('transition');
-        this.$.viewDoc.classList.add('transition');
-        this.$.viewDemo.classList.add('transition');
+        this.$.viewDemo.hidden = false;
         this.$.titleView.innerHTML = 'Demo';
+        this.$.menuDoc.hidden = true;
+        this.$.viewDoc.hidden = true;
       } else {
         this.$.selector.classList.remove('transition');
-        this.$.viewDoc.classList.remove('transition');
-        this.$.viewDemo.classList.remove('transition');
+        this.$.menuDoc.hidden = false;
+        this.$.viewDoc.hidden = false;
         this.$.titleView.innerHTML = 'Documentation';
+        this.$.viewDemo.hidden = true;
       }
     },
     /**
