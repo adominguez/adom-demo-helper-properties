@@ -9,6 +9,11 @@
     "demo",
     "properties"
   ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adominguez/adom-demo-helper-properties"
+  },
   "dependencies": {
     "polymer": "Polymer/polymer#1.9 - 2",
     "vaadin-icons": "vaadin/vaadin-icons#^4.1.3",
