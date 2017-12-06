@@ -34,6 +34,37 @@ Is a component created for to be used in other demo components with properties
   <style include="adom-demo-helper-properties-styles adom-demo-helper-properties-shared-styles prism-theme-default"></style>
   <template>
 
+    <div id="menuDoc" class="menuDoc">
+      <button id="installationButton" class="menuDoc__button" name="installation" on-tap="_setActiveDoc">
+        <iron-icon icon="vaadin:arrow-circle-down-o"></iron-icon>
+        Installation
+      </button>
+      <button id="descriptionButton" class="menuDoc__button" name="description" on-tap="_setActiveDoc">
+        <iron-icon icon="vaadin:clipboard-text"></iron-icon>
+        Description
+      </button>
+      <button id="slotButton" class="menuDoc__button" name="docSlot" on-tap="_setActiveDoc">
+        <iron-icon icon="vaadin:insert"></iron-icon>
+        Slot
+      </button>
+      <button id="stylingButton" class="menuDoc__button" name="docStyling" on-tap="_setActiveDoc">
+        <iron-icon icon="vaadin:fill"></iron-icon>
+        Styling
+      </button>
+      <button id="propertiesButton" class="menuDoc__button" name="docProperties" on-tap="_setActiveDoc">
+        <iron-icon icon="vaadin:road-branches"></iron-icon>
+        Properties
+      </button>
+      <button id="methodsButton" class="menuDoc__button" name="docMethods" on-tap="_setActiveDoc">
+        <iron-icon icon="vaadin:compile"></iron-icon>
+        Methods
+      </button>
+      <button id="eventsButton" class="menuDoc__button" name="docEvents" on-tap="_setActiveDoc">
+        <iron-icon icon="vaadin:share-square"></iron-icon>
+        Events
+      </button>
+    </div>
+
     <iron-ajax auto url="[[bower]]" handle-as="json" last-response="{{_metadata}}" on-response="_getBower" on-error="_getBowerError"></iron-ajax>
     <iron-ajax auto url="[[descriptorUrl]]" handle-as="json" last-response="{{_analysis}}" on-response="_getAnalysis" on-error="_getAnalysisError"></iron-ajax>
     <iron-ajax auto url="[[cssUrl]]" handle-as="text" last-response="{{_cssStyles}}" on-response="_getCss" on-error="_getCssError"></iron-ajax>
@@ -76,36 +107,7 @@ Is a component created for to be used in other demo components with properties
         <div class="main__content__wrap">
           <div id="viewDoc" class="main__content__wrap__views">
             <div class="main__content__wrap__views__doc">
-              <div class="main__content__wrap__views__doc__left-panel">
-                <button class="main__content__wrap__views__doc__left-panel__button">
-                  <iron-icon icon="vaadin:arrow-circle-down-o"></iron-icon>
-                  Installation
-                </button>
-                <button class="main__content__wrap__views__doc__left-panel__button">
-                  <iron-icon icon="vaadin:clipboard-text"></iron-icon>
-                  Description
-                </button>
-                <button class="main__content__wrap__views__doc__left-panel__button">
-                  <iron-icon icon="vaadin:insert"></iron-icon>
-                  Slot
-                </button>
-                <button class="main__content__wrap__views__doc__left-panel__button">
-                  <iron-icon icon="vaadin:fill"></iron-icon>
-                  Styling
-                </button>
-                <button class="main__content__wrap__views__doc__left-panel__button">
-                  <iron-icon icon="vaadin:road-branches"></iron-icon>
-                  Properties
-                </button>
-                <button class="main__content__wrap__views__doc__left-panel__button">
-                  <iron-icon icon="vaadin:compile"></iron-icon>
-                  Methods
-                </button>
-                <button class="main__content__wrap__views__doc__left-panel__button">
-                  <iron-icon icon="vaadin:share-square"></iron-icon>
-                  Events
-                </button>
-              </div>
+              <div class="main__content__wrap__views__doc__left-panel"></div>
               <div class="main__content__wrap__views__doc__right-panel">
                 <div id="installation" class="main__content__wrap__views__doc__right-panel__doc-view">
                   <h3>Installation</h3>
@@ -209,7 +211,8 @@ Is a component created for to be used in other demo components with properties
                       <div class="wrap" hidden$="[[_computeProperties(item)]]">
                         <div class="flex">
                           <div class="column1">
-                            <strong>[[item.name]]</strong><span class="blue"> ([[item.type]])</span>
+                            <strong>[[item.name]]</strong>
+                            <span class="blue"> ([[item.type]])</span>
                           </div>
                           <div class="column2">
                             [[item.description]]
@@ -222,7 +225,7 @@ Is a component created for to be used in other demo components with properties
                     </template>
                   </div>
                 </div>
-                <div id="docEvents" class="main__content__wrap__views__doc__right-panel__doc-view">
+                <div id="docMethods" class="main__content__wrap__views__doc__right-panel__doc-view">
                   <h3>Methods</h3>
                   <div class="main__content__wrap__views__doc__right-panel__doc-view__content">
                     <template is="dom-repeat" items="[[_methodsComponent]]">

@@ -15,6 +15,34 @@
   @apply(--adom-demo-helper-properties);
 }
 
+.menuDoc {
+  position: fixed;
+  top: 31%;
+  z-index: 1;
+  &__button {
+    background-color: transparent;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #666;
+    padding: 24px;
+    font-size: 16px;
+    color: #666;
+    text-align: left;
+    font-weight: lighter;
+    display: flex;
+    align-items: flex-end;
+    transition: padding ease 200ms, font-weight ease 200ms, color ease 200ms;
+  }
+  &__button.active {
+    padding: 24px 8px;
+    font-weight: bold;
+    color: #fff;
+  }
+  &__button:hover {
+    color: #fff;
+  }
+}
+
 .main {
   flex: 1;
   &__title {
@@ -108,25 +136,6 @@
             background-color: #212121;
             color: white;
             padding: 24px 36px;
-            &__button {
-              background-color: transparent;
-              width: 100%;
-              border: 0;
-              border-bottom: 1px solid #666;
-              padding: 24px;
-              font-size: 16px;
-              color: #666;
-              text-align: left;
-              font-weight: lighter;
-              display: flex;
-              align-items: flex-end;
-              transition: padding ease 200ms, font-weight ease 200ms, color ease 200ms;
-            }
-            &__button:hover {
-              padding: 24px 8px;
-              font-weight: bold;
-              color: #fff;
-            }
           }
           &__right-panel {
             flex: 4;

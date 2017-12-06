@@ -167,6 +167,28 @@
       }
     },
 
+    ready: function() {
+      Polymer.RenderStatus.afterNextRender(this, function() {
+        var self = this;
+        var docView = this.shadowRoot.querySelectorAll('.main__content__wrap__views__doc__right-panel__doc-view');
+        window.addEventListener('scroll', function() {
+          self.$.installation
+          //console.log(pageYOffset + 'px');
+          /*console.log('pageYOffset', pageYOffset)
+          console.log('pageXOffset', pageXOffset)*/
+          if(pageYOffset === 0) {
+            self.$.menuDoc.style.top = '300px';
+          }
+          if(pageYOffset > 0 && pageYOffset <= 300) {
+            self.$.menuDoc.style.top = 300 - pageYOffset + 'px';
+          }
+          if(pageYOffset > 300) {
+            self.$.menuDoc.style.top = 0;
+          }
+        });
+      })
+    },
+
     _setEvents: function () {
       var events = '';
       this._eventsComponent.forEach(function(element) {
@@ -415,7 +437,7 @@
         this.$.selector.classList.remove('transition');
         this.$.viewDoc.classList.remove('transition');
         this.$.viewDemo.classList.remove('transition');
-        this.$.titleView.innerHTML = 'Documentación';
+        this.$.titleView.innerHTML = 'Documentation';
       }
     },
     /**
@@ -578,6 +600,15 @@
     },
     _computeSlotDoc: function() {
       return this._slotsComponent !== [] ? false : true;
+    },
+    _setActiveDoc: function(e) {
+      var buttons = this.shadowRoot.querySelectorAll('.menuDoc__button');
+      var doc = this.shadowRoot.querySelector('#' +e.currentTarget.name);
+      doc.scrollIntoView();
+      buttons.forEach(function(element) {
+        element.classList.remove('active');
+      });
+      e.currentTarget.classList.add('active')
     }
 
   });

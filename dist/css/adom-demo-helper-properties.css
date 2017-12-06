@@ -15,6 +15,32 @@
   font-weight: 100;
   @apply (--adom-demo-helper-properties); }
 
+.menuDoc {
+  position: fixed;
+  top: 31%;
+  z-index: 1; }
+  .menuDoc__button {
+    background-color: transparent;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #666;
+    padding: 24px;
+    font-size: 16px;
+    color: #666;
+    text-align: left;
+    font-weight: lighter;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: end;
+    align-items: flex-end;
+    transition: padding ease 200ms, font-weight ease 200ms, color ease 200ms; }
+  .menuDoc__button.active {
+    padding: 24px 8px;
+    font-weight: bold;
+    color: #fff; }
+  .menuDoc__button:hover {
+    color: #fff; }
+
 .main {
   -ms-flex: 1;
   flex: 1; }
@@ -107,25 +133,6 @@
             background-color: #212121;
             color: white;
             padding: 24px 36px; }
-            .main__content__wrap__views__doc__left-panel__button {
-              background-color: transparent;
-              width: 100%;
-              border: 0;
-              border-bottom: 1px solid #666;
-              padding: 24px;
-              font-size: 16px;
-              color: #666;
-              text-align: left;
-              font-weight: lighter;
-              display: -ms-flexbox;
-              display: flex;
-              -ms-flex-align: end;
-              align-items: flex-end;
-              transition: padding ease 200ms, font-weight ease 200ms, color ease 200ms; }
-            .main__content__wrap__views__doc__left-panel__button:hover {
-              padding: 24px 8px;
-              font-weight: bold;
-              color: #fff; }
           .main__content__wrap__views__doc__right-panel {
             -ms-flex: 4;
             flex: 4;
