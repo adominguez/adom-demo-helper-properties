@@ -203,6 +203,14 @@
               .main__content__wrap__views__tabs__pages__content__textarea {
                 -ms-flex: 1;
                 flex: 1; }
+              .main__content__wrap__views__tabs__pages__content__boolean {
+                margin-right: 10px;
+                display: -ms-flexbox;
+                display: flex;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                -ms-flex-align: center;
+                align-items: center; }
               .main__content__wrap__views__tabs__pages__content__tooltip {
                 position: relative;
                 display: -ms-flexbox;

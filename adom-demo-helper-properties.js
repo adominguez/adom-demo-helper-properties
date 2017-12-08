@@ -288,13 +288,14 @@
       var properties = [];
       var slots = [];
       var methods = [];
+      var self = this;
       //Formated Array for _propertiesComponent
       this._analysis.elements[0].properties.forEach(function (element) {
         properties.push({
           "name": element.name,
           "nameHtml": element.name.replace(/(?:^|\.?)([A-Z])/g, function (x,y){return "-" + y.toLowerCase()}).replace(/^_/, ""),
           "description": element.description,
-          "defaultValue": element.defaultValue !== "null" && element.type === "string" ? element.defaultValue.slice(1, -1) : element.defaultValue === "null" ? '' : element.defaultValue,
+          "defaultValue": self._getDefaultValue(element),
           "privacy": element.privacy,
           "type": element.type,
           "special": element.name.slice(-5) === 'color' ? 'color' : ''
@@ -465,14 +466,8 @@
         if (element.type === 'string' && element.defaultValue !== "") {
           properties += element.nameHtml + '="' + element.defaultValue + '" ';
         }
-        if(element.type === 'boolean') {
-          if(element.defaultValue === 1) {
-            element.defaultValue = 'true';
-          } else {
-            element.defaultValue = 'false';
-          }
-        }
-        if (element.type === 'boolean' && element.defaultValue === 'true') {
+        console.log(element.defaultValue)
+        if (element.type === 'boolean' && element.defaultValue === true) {
           properties += element.nameHtml + ' ';
         }
         if (element.type === 'Array' && element.defaultValue !== '[]') {
@@ -619,6 +614,23 @@
       if(window.innerWidth < resize) {
         self.$.fullsize.click();
       }
+    },
+    _getDefaultValue: function(value) {
+      if(value.defaultValue !== "null" && value.type === "string") {
+        return value.defaultValue.slice(1, -1);
+      } else {
+        if(value.defaultValue === "null") {
+          return "";
+        }
+        if(value.type === "boolean" && value.defaultValue === "true") {
+          return true;
+        } else {
+          return false;
+        }
+        return value.defaultValue;
+      }
+      element.defaultValue !== "null" && element.type === "string" ? element.defaultValue.slice(1, -1) : element.defaultValue === "null" ? '' : element.defaultValue
+      return value === 'false' ? false : true;
     }
 
   });
