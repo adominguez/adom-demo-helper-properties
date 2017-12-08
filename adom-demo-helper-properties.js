@@ -214,7 +214,7 @@
         function removeToast() {
           document.querySelector('#toast').classList.remove('show');
         }
-      `
+        `
       return events;
     },
 
@@ -490,12 +490,14 @@
           ${styles}
         }
       </style>
-      <${this.componentName} ${properties}>
+      <${this.componentName} id="component" ${properties}>
       ${this.allowSlot ? this._slotted : ''}
       <${this.componentName}/>`
     },
     _buildIframe: function () {
       this._buildComponent();
+      var methods = '';
+      var functions = '';
       this._builtIframe = `<!doctype html>
       <html lang="en">
       <head>
@@ -551,17 +553,40 @@
         </style>
       </head>
       <body>
-        <template is="dom-bind">
+      <dom-bind>
+        <template is="dom-bind" id="demo">
           ${this._builtComponent}
+          ${this._methodsComponent.forEach(function(element) {
+            methods += `
+            <input type="hidden" id="${element.name}" on-click="${element.name}">`
+          })}
+          ${methods}
+          <script>
+            document.addEventListener('WebComponentsReady', function() {
+              var demo = document.querySelector(Polymer.Element ? 'dom-bind' : '#demo');
+
+              ${this._methodsComponent.forEach(function(element) {
+                functions +=`
+                  demo.${element.name} = function() {
+                    demo.$.component.${element.name}();
+                  }
+                `
+              })}
+
+              ${functions}
+            });
+          </script>
           </template>
+        </dom-bind>
         <div id="toast" class="toast" onClick="removeToast()">
           <div class="toastEvent" id="toastEvent">
           </div>
           <div class="detail" id="detail">
           </div>
         </div>
-        <script>
+        <script type="text/javascript">
           ${this._setEvents()}
+
         </script>
       </body>
       </html>
@@ -630,6 +655,11 @@
       }
       element.defaultValue !== "null" && element.type === "string" ? element.defaultValue.slice(1, -1) : element.defaultValue === "null" ? '' : element.defaultValue
       return value === 'false' ? false : true;
+    },
+
+    _setEventMethod: function(e) {
+      var iframe = this.$.frame;
+      iframe.contentWindow.document.querySelector('#' + e.model.item.name).click();
     }
 
   });

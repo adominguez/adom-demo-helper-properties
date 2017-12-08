@@ -430,7 +430,15 @@ The properties `bower`, `package`, `descriptorUrl` and `cssUrl` are the url from
                     </template>
                   </section>
                   <section class="main__content__wrap__views__tabs__pages__content">
-                    methods
+
+                    <template is="dom-repeat" items="[[_methodsComponent]]">
+                      <template is="dom-if" if="[[!_computeMethods(item)]]">
+                        <paper-button raised on-tap="_setEventMethod">
+                          [[item.name]]
+                        </paper-button>
+                      </template>
+                    </template>
+
                   </section>
                   <section class="main__content__wrap__views__tabs__pages__content column">
                     <paper-toggle-button id="checkSlot" checked="{{allowSlot}}" on-checked-changed="_buildIframe">Usar slot</paper-toggle-button>
