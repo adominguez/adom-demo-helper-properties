@@ -466,7 +466,6 @@
         if (element.type === 'string' && element.defaultValue !== "") {
           properties += element.nameHtml + '="' + element.defaultValue + '" ';
         }
-        console.log(element.defaultValue)
         if (element.type === 'boolean' && element.defaultValue === true) {
           properties += element.nameHtml + ' ';
         }
