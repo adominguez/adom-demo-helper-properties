@@ -433,9 +433,12 @@ The properties `bower`, `package`, `descriptorUrl` and `cssUrl` are the url from
 
                     <template is="dom-repeat" items="[[_methodsComponent]]">
                       <template is="dom-if" if="[[!_computeMethods(item)]]">
-                        <paper-button raised on-tap="_setEventMethod">
-                          [[item.name]]
-                        </paper-button>
+                        <div class="main__content__wrap__views__tabs__pages__content__tooltip">
+                          <paper-button raised on-tap="_setEventMethod">
+                            [[item.name]]
+                          </paper-button>
+                          <span class="tooltiptext">[[item.description]]</span>
+                        </div>
                       </template>
                     </template>
 
