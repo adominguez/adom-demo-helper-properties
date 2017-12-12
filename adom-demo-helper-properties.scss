@@ -208,6 +208,7 @@
             &__content {
               display: flex;
               flex-direction: row;
+              flex-wrap: wrap;
               &__span {
                 padding: 20px;
                 text-transform: uppercase;
